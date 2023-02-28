@@ -17,6 +17,8 @@ ActiveRecord::Schema.define(version: 2023_02_28_174940) do
     t.string "title"
     t.string "author"
     t.string "genre"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -24,6 +26,8 @@ ActiveRecord::Schema.define(version: 2023_02_28_174940) do
     t.integer "rating"
     t.string "user_id"
     t.string "book_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -31,6 +35,7 @@ ActiveRecord::Schema.define(version: 2023_02_28_174940) do
     t.string "username"
     t.string "email"
     t.string "password"
+    t.datetime "created_at"
   end
 
 end
