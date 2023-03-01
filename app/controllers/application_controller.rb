@@ -19,4 +19,15 @@ class ApplicationController < Sinatra::Base
     book.to_json()
   end
 
+  #adding a new book
+  post "/books" do
+    book = Book.create(
+      image_url: params[:image_url],
+      author: params[:author],
+      title: params[:title],
+      genre: params[:genre]
+    )
+    book.to_json()
+  end
+
 end
