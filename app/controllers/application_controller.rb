@@ -48,8 +48,25 @@ class ApplicationController < Sinatra::Base
     book = Book.find_by(id: params[:id])
     book.destroy
     book.to_json()
-    
-
   end
+  #USERS
+  ## getting all users
+  get "/users" do
+    users = User.all
+    users.to_json
+  end
+  ##getting a single user
+
+  get "/users/:id" do
+    user = User.find_by(id: params[:id])
+    user.to_json
+  end
+
+  ## posting a user
+post "/users" do
+
+end
+
+
 
 end
