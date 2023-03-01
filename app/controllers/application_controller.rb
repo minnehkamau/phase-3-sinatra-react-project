@@ -63,10 +63,28 @@ class ApplicationController < Sinatra::Base
   end
 
   ## posting a user
-post "/users" do
+
+  post '/users' do
+    user = User.find_by(email: params[:myemail])
+    if user.present?
+      message = { error: "Email exists!" }
+    elsif params[:myusername].present? && params[:myemail].present? && params[:myname].present?
+      user = User.new(username: params[:myusername], email: params[:myemail], name: params[:myname])
+      if user.save
+        message = { success: "User created successfully!" }
+      else
+        message = { error: "Error saving user!" }
+      end
+    else
+      message = { error: "All fields should be filled!" }
+    end
+    message.to_json
+  end
+  
+  
 
 end
 
 
 
-end
+
