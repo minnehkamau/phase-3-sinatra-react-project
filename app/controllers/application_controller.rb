@@ -98,6 +98,12 @@ class ApplicationController < Sinatra::Base
 
 end
 
+##REVIEWS
+#getting all reviews
+get "/reviews" do
+reviews = Review.all
+reviews.to_json
+end
   
   
 
