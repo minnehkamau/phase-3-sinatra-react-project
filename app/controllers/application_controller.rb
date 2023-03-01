@@ -1,7 +1,7 @@
 class ApplicationController < Sinatra::Base
   set :default_content_type, 'application/json'
   
-  # Add your routes here
+  
   #getting all books
   get "/" do
     { message: "Getting started with my project" }.to_json
@@ -30,4 +30,16 @@ class ApplicationController < Sinatra::Base
     book.to_json()
   end
 
+  #Patching a book
+  patch "/books/:id" do
+    book = Book.find_by(id: params[:id])
+
+    book.update(
+      image_url: params[:image_url],
+      author: params[:author],
+      title: params[:title],
+      genre: params[:genre]
+    )
+    book.to_json()
+  end
 end
