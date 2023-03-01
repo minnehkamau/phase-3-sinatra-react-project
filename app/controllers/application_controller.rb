@@ -67,19 +67,37 @@ class ApplicationController < Sinatra::Base
   post '/users' do
     user = User.find_by(email: params[:myemail])
     if user.present?
-      message = { error: "Email exists!" }
+      message = { error: "Email exists already!" }
     elsif params[:myusername].present? && params[:myemail].present? && params[:myname].present?
       user = User.new(username: params[:myusername], email: params[:myemail], name: params[:myname])
       if user.save
-        message = { success: "User created successfully!" }
+        message = { success: "User has been created successfully!" }
       else
-        message = { error: "Error saving user!" }
+        message = { error: "Error occured when saving user!" }
       end
     else
-      message = { error: "All fields should be filled!" }
+      message = { error: "Fill all fields should be filled!" }
     end
     message.to_json
   end
+
+  ## Deleting User
+  delete "/users/:id" do
+    count_users = User.where(id: params[:id]).count() #Integer 2,3,4,5
+    if count_users>0
+        user = User.find(params[:id])
+        user.destroy
+        message = {:succcess => "User has been deleted successfully!!"}
+        message.to_json
+
+    else
+        message = {:error => "User entered does not exist!"}
+        message.to_json
+    end
+
+
+end
+
   
   
 
