@@ -158,13 +158,19 @@ end
     }
   end
   ## delete a review
+  delete "/reviews/:id" do
+    @review = Review.find_by(id: params[:id])
+  
+    if @review
+      @review.destroy
+      status 204
+    else
+      status 404
+      json error: "Review not found"
+    end
+  end
   
   
-  
-
-
-  
-
 end
 
 
