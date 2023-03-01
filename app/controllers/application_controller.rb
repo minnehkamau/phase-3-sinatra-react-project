@@ -2,10 +2,11 @@ class ApplicationController < Sinatra::Base
   set :default_content_type, 'application/json'
   
   
-  #getting all books
+  
   get "/" do
     { message: "Getting started with my project" }.to_json
   end
+  #GETTING ALL BOOKS
 
   get "/books" do
     books = Book.all
@@ -42,4 +43,13 @@ class ApplicationController < Sinatra::Base
     )
     book.to_json()
   end
+  #Deleting single book
+  delete "/books/:id" do
+    book = Book.find_by(id: params[:id])
+    book.destroy
+    book.to_json()
+    
+
+  end
+
 end
