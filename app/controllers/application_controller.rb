@@ -100,10 +100,11 @@ end
 
 ##REVIEWS
 #getting all reviews
-get "/reviews" do
-reviews = Review.all
-reviews.to_json
-end
+  get "/reviews" do
+    reviews = Review.all
+    reviews.to_json
+  end
+
   # getting single review
 
   get "/reviews/:id" do
@@ -111,6 +112,57 @@ end
     review.to_json
 
   end
+
+
+  #add a review
+  post "/reviews" do
+    @review = Review.new(review_params)
+  
+    if @review.save
+      status 201
+      json @review
+    else
+      status 422
+      json @review.errors
+    end
+  end
+  
+  def review_params
+    {
+      comment: params[:comment],
+      rating: params[:rating],
+      user_id: params[:user_id],
+      book_id: params[:book_id]
+    }
+  end
+  #UPDATING REVIEW
+
+  patch "/reviews/:id" do
+    @review = Review.find_by(id: params[:id])
+    
+    if @review.update(review_params)
+      status 200
+      json @review
+    else
+      status 422
+      json @review.errors
+    end
+  end
+  
+  def review_params
+    {
+      comment: params[:comment],
+      rating: params[:rating],
+      user_id: params[:user_id],
+      book_id: params[:book_id]
+    }
+  end
+  ## delete a review
+  
+  
+  
+
+
   
 
 end
