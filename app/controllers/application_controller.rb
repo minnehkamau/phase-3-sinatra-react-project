@@ -104,7 +104,13 @@ get "/reviews" do
 reviews = Review.all
 reviews.to_json
 end
-  
+  # getting single review
+
+  get "/reviews/:id" do
+    review = Review.find_by(id: params[:id])
+    review.to_json
+
+  end
   
 
 end
