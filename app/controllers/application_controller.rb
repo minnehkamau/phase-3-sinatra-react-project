@@ -21,14 +21,14 @@ class ApplicationController < Sinatra::Base
   end
 
   #adding a new book
-  post "/reviews" do
-    review = Review.create(
-      comment: params[:comment],
-      rating: params[:rating],
-      user_id: params[:user_id],
-      book_id: params[:book_id]
+  post "/books" do
+    book = Book.create(
+      image_url: params[:image_url],
+      author: params[:author],
+      title: params[:title],
+      genre: params[:genre]
     )
-    review.to_json()
+    book.to_json()
   end
   
 
@@ -116,27 +116,18 @@ end
 
 
   #add a review
-  post '/reviews' do
-    review = Review.new(params[:review])
-  
-    if review.save
-      status 201
-      json review.to_json
-    else
-      status 422
-      json review.errors.to_json
-    end
-  end
-  
-  
-  def review_params
-    {
+  post "/reviews" do
+    review = Review.create(
       comment: params[:comment],
       rating: params[:rating],
       user_id: params[:user_id],
       book_id: params[:book_id]
-    }
+    )
+    review.to_json()
   end
+  
+  
+  
   #UPDATING REVIEW
 
   patch "/reviews/:id" do
