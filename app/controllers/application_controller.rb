@@ -101,9 +101,13 @@ end
 
 ##REVIEWS
 #getting all reviews
+  # get "/reviews" do
+  #   reviews = Review.all
+  #   reviews.to_json(include: { reviews: { include: :user }})
+  # end
   get "/reviews" do
-    reviews = Review.all
-    reviews.to_json
+    reviews = Review.all.includes(:book, :user)
+    reviews.to_json(include: [:book, :user])
   end
 
   # getting single review
